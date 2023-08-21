@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:favorite_places/screens/map.dart';
 import 'package:favorite_places/models/place.dart';
+import 'package:mapbox_gl/mapbox_gl.dart'; // Sử dụng thư viện Mapbox
 
 class PlaceDetailScreen extends StatelessWidget {
   const PlaceDetailScreen({super.key, required this.place});
@@ -10,7 +11,7 @@ class PlaceDetailScreen extends StatelessWidget {
   String get locationImage {
     final lat = place.location.latitude;
     final lng = place.location.longitude;
-    return 'https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng=&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:A%7C$lat,$lng&key=AIzaSyDLcwxUggpPZo8lcbH0TB4Crq5SJjtj4ag';
+    return 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-s($lng,$lat)/$lng,$lat,14.25,0,60/600x300?access_token=sk.eyJ1IjoiaGFpZGFpZGFvIiwiYSI6ImNsbGw3bHV1cjF3c3ozcHFqZjlwODlscnQifQ.GUvQ0CkLilIFURxrbyDfzQ'; // Thay đổi URL API
   }
 
   @override

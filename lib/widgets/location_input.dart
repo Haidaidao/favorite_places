@@ -27,15 +27,15 @@ class _LocationInputState extends State<LocationInput> {
     }
     final lat = _pickedLocation!.latitude;
     final lng = _pickedLocation!.longitude;
-    return 'https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng=&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:A%7C$lat,$lng&key=AIzaSyDo5Idei7nhxdVh_W3ahTjZuRs6UWj9ZQo';
+    return 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-s($lng,$lat)/$lng,$lat,14.25,0,60/600x300?access_token=sk.eyJ1IjoiaGFpZGFpZGFvIiwiYSI6ImNsbGw3bHV1cjF3c3ozcHFqZjlwODlscnQifQ.GUvQ0CkLilIFURxrbyDfzQ'; // Thay đổi URL API
   }
 
   Future<void> _savePlace(double latitude, double longitude) async {
     final url = Uri.parse(
-        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=AIzaSyDo5Idei7nhxdVh_W3ahTjZuRs6UWj9ZQo');
+        'https://api.mapbox.com/geocoding/v5/mapbox.places/$longitude,$latitude.json?access_token=sk.eyJ1IjoiaGFpZGFpZGFvIiwiYSI6ImNsbGw3bHV1cjF3c3ozcHFqZjlwODlscnQifQ.GUvQ0CkLilIFURxrbyDfzQ'); // Thay đổi URL API
     final response = await http.get(url);
     final resData = json.decode(response.body);
-    final address = resData['results'][0]['formatted_address'];
+    final address = resData['features'][0]['place_name']; // Thay đổi cách lấy địa chỉ
 
     setState(() {
       _pickedLocation = PlaceLocation(
